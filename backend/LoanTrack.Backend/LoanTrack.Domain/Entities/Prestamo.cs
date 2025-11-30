@@ -1,0 +1,28 @@
+﻿using LoanTrack.Domain.Enums;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LoanTrack.Domain.Entities
+{
+    public class Prestamo
+    {
+        [Key]
+        public int IdPrestamo { get; set; }
+        public decimal MontoPrestado { get; set; }
+        [Range(1,100)]
+        public decimal TasaInteres { get; set; }
+        public  decimal MontoTotal { get; set; }
+        public DateOnly FechaInicio { get; set; }
+        public DateOnly FechaVencimiento { get; set; }
+        public EstadoPrestamo Estado { get; set; }
+
+        //relaciones
+        public int IdCliente { get; set; }
+        public Cliente Cliente { get; set; }
+        public ICollection<Pago> Pagos { get; set; }
+    }
+}
