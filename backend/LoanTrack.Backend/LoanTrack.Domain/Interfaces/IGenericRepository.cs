@@ -12,6 +12,6 @@ namespace LoanTrack.Domain.Interfaces
         Task<T> GetById(int id);
         Task Create(T entity);
         void Update(T entity);
-        void Delete(int id);
+        void Delete(T entity);
     }
 }
