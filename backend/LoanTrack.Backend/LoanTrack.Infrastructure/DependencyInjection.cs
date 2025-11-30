@@ -14,7 +14,7 @@ namespace LoanTrack.Infrastructure
     {
         public static void AddInfrastructureServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("")));
+            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("LoanTrackDBConnection")));
         }
     }
 }

@@ -18,4 +18,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LoanTrack.Application\LoanTrack.Application.csproj" />
+    <ProjectReference Include="..\LoanTrack.Infrastructure\LoanTrack.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
