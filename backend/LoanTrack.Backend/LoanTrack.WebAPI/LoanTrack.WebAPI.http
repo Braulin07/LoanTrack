@@ -1,0 +1,6 @@
+@LoanTrack.WebAPI_HostAddress = http://localhost:5002
+
+GET {{LoanTrack.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
