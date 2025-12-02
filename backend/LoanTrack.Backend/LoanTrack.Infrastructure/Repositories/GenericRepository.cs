@@ -36,7 +36,7 @@ namespace LoanTrack.Infrastructure.Repositories
             _context.Set<T>().Update(entity);
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
         }
