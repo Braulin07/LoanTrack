@@ -12,34 +12,39 @@ namespace LoanTrack.Infrastructure.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly AppDbContext _context;
+        private readonly DbSet<T> _dbset;
         public GenericRepository(AppDbContext context)
         {
             _context = context;
+            _dbset = _context.Set<T>();
         }
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _dbset.ToListAsync();
         }
 
         public async Task<T> GetById(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await _dbset.FindAsync(id);
         }
 
         public async Task Create(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            await _dbset.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+            _dbset.Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            _dbset.Remove(entity);
+            await _context.SaveChangesAsync();
         }
- 
+
     }
 }

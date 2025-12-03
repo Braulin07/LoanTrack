@@ -8,7 +8,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddInfrastructureServiceRegistration(builder.Configuration);
 builder.Services.AddApplicationServiceRegistration();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

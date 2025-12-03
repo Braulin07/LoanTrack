@@ -5,19 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Domain.Entities
+namespace LoanTrack.Application.Dtos
 {
-    public class Cliente
+    public class ClienteUpdateDto
     {
-        public Cliente()
-        {
-            FechaRegistro = DateOnly.FromDateTime(DateTime.Now);
-            Activo = true;
-        }
-        [Key]
-        public int IdCliente { get; set; }
-        [Required]
-        [MaxLength(20)]
+        public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         [MaxLength(20)]
         public string Apellido { get; set; } = string.Empty;
@@ -28,10 +20,7 @@ namespace LoanTrack.Domain.Entities
         [EmailAddress]
         public string Correo { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
-        public DateOnly FechaRegistro { get; set; }
         public bool Activo { get; set; }
 
-        //relaciones
-        public ICollection<Prestamo> Prestamos { get; set; }
     }
 }
