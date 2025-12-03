@@ -15,8 +15,8 @@ namespace LoanTrack.Infrastructure.Repositories
     {
         public ClienteRepository(AppDbContext context) : base(context)
         {
-            
         }
+
         public async Task<Cliente> GetByCedula(string cedula)
         {
             return await _context.Clientes.FirstOrDefaultAsync(c => c.Cedula == cedula);

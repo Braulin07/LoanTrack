@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Dtos
 {
-    internal class ClienteReadDTO
+    public class ClienteReadDTO
     {
         public int IdCliente { get; set; }
 

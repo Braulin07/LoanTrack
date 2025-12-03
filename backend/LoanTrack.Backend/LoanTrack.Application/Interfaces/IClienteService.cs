@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Interfaces
 {
-    internal interface IClienteService
+    public interface IClienteService
     {
         Task<ClienteReadDTO> GetByCedula(string cedula);
 
@@ -18,10 +18,9 @@ namespace LoanTrack.Application.Interfaces
 
         Task<ClienteReadDTO> GetById(int id);
 
-        Task Create (ClienteCreateDto clienteCreateDto);
-
-        Task Update(ClienteUpdateDto clienteUpdateDto);
-        Task Delete(int id);
+        Task<ClienteReadDTO> Create (ClienteCreateDto clienteCreateDto);
+        Task<ClienteReadDTO> Update(int id, ClienteUpdateDto dto);
+        Task<bool> Delete(int id);
 
     }
 }

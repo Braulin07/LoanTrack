@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Services
 {
-    internal class ClienteService : IClienteService
+    public class ClienteService : IClienteService
     {
         private readonly IClienteRepository _repo;
         private readonly IMapper _mapper;
@@ -21,26 +21,28 @@ namespace LoanTrack.Application.Services
             _mapper = Mapper;
         }
 
-        public async Task Create(ClienteCreateDto clienteCreateDto)
+        public async Task<ClienteReadDTO> Create(ClienteCreateDto dto)
         {
-            var ValidacionCliente = await _repo.GetByCedula(clienteCreateDto.Cedula);
+            var ValidacionCliente = await _repo.GetByCedula(dto.Cedula);
             if (ValidacionCliente != null)
             {
 
                 throw new ArgumentException("Esta cedula ya esta registrada");
             }
-            var entidad = _mapper.Map<Cliente>(clienteCreateDto);
-            await _repo.Create(entidad);
+            var entidad = _mapper.Map<Cliente>(dto);
+             await _repo.Create(entidad);
+            return _mapper.Map<ClienteReadDTO>(entidad);
         }
 
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var response = await _repo.GetById(id);
             if (response == null)
             {
-                throw new ArgumentException("Cliente no existe");
+                return false;
             }
             await _repo.Delete(response);
+            return true;
         }
 
         public async Task<IEnumerable<ClienteReadDTO>> GetAll()
@@ -54,7 +56,7 @@ namespace LoanTrack.Application.Services
             var user = await _repo.GetByCedula(cedula);
             
             if (user == null)
-            throw new ArgumentException("Cliente no existe");
+                throw new KeyNotFoundException("Cliente no encontrado");
 
             return _mapper.Map<ClienteReadDTO>(user);
         }
@@ -63,12 +65,13 @@ namespace LoanTrack.Application.Services
 
         public async Task<ClienteReadDTO> GetById(int id)
         {
-            if (id != 0)
+            var users = await _repo.GetById(id);
+
+            if (users == null)
             {
-                var users = await _repo.GetById(id);
-                return _mapper.Map<ClienteReadDTO>(users);
+                throw new KeyNotFoundException("Cliente no existe");
             }
-            throw new ArgumentException("Id no existe");
+            return _mapper.Map<ClienteReadDTO>(users);
 
         }
 
@@ -78,15 +81,17 @@ namespace LoanTrack.Application.Services
 
             return _mapper.Map<List<ClienteReadDTO>>(users);
         }
-        public async Task Update(ClienteUpdateDto clienteUpdateDto)
+        public async Task<ClienteReadDTO> Update(int id, ClienteUpdateDto dto)
         {
-            var cliente = await _repo.GetById(clienteUpdateDto.Id);
-            
-            if(clienteUpdateDto == null)
-                throw new ArgumentException("Id no existe");
 
-                _mapper.Map(clienteUpdateDto,cliente);
+            var cliente = await _repo.GetById(dto.Id);
+
+            if (cliente == null)
+                throw new ArgumentException("Cliente no existe");
+
+             _mapper.Map(dto, cliente);
                await _repo.Update(cliente);
+            return _mapper.Map<ClienteReadDTO>(cliente);
         }
 
     }

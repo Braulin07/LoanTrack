@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Dtos
 {
-    internal class ClienteCreateDto
+    public class ClienteCreateDto
     {
         public string Nombre { get; set; } = string.Empty;
         [MaxLength(20)]

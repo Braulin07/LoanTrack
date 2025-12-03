@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Dtos
 {
-    internal class ClienteUpdateDto
+    public class ClienteUpdateDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
