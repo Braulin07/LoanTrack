@@ -9,6 +9,11 @@ namespace LoanTrack.Domain.Entities
 {
     public class Cliente
     {
+        public Cliente()
+        {
+            FechaRegistro = DateOnly.FromDateTime(DateTime.Now);
+            Activo = true;
+        }
         [Key]
         public int IdCliente { get; set; }
         [Required]
