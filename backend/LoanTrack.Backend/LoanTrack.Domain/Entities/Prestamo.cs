@@ -15,7 +15,9 @@ namespace LoanTrack.Domain.Entities
         public decimal MontoPrestado { get; set; }
         [Range(1,100)]
         public decimal TasaInteres { get; set; }
+        public int Plazo {  get; set; } // en meses
         public  decimal MontoTotal { get; set; }
+        public decimal MontoPagado { get; set; }
         public DateOnly FechaInicio { get; set; }
         public DateOnly FechaVencimiento { get; set; }
         public EstadoPrestamo Estado { get; set; }
