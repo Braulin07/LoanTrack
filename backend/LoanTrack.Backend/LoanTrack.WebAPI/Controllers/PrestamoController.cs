@@ -36,7 +36,7 @@ namespace LoanTrack.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = _service.Delete(id);
+            var result = await _service.Delete(id);
             return Ok(result);
         }
 

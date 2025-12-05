@@ -47,7 +47,9 @@ namespace LoanTrack.Application.Services
         public async Task<bool> Delete(int id)
         {
             var response = await _repo.GetById(id);
-            if (response == null) throw new Exception("False: Usuario NO fue eliminado");
+            if (response == null) return false;
+
+            await _repo.Delete(response);
 
             return true;
         }
