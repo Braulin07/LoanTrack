@@ -41,13 +41,13 @@ namespace LoanTrack.WebAPI.Controllers
         {
             var user = await _service.Create(dto);
 
-            return CreatedAtAction(nameof(GetById), new { id = user.IdCliente }, user);
+            return CreatedAtAction(nameof(GetById), new { id = user.ClienteId }, user);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<ClienteReadDTO>> Update(int id, [FromBody] ClienteUpdateDto dto)
         {
-            if (id != dto.Id) return BadRequest();
+            if (id != dto.ClienteId) return BadRequest();
 
             var user = await _service.Update(id,dto);
             return Ok(user);

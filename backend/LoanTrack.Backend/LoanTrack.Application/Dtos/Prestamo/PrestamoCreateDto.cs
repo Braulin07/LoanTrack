@@ -17,6 +17,6 @@ namespace LoanTrack.Application.Dtos.Prestamo
         public DateOnly FechaInicio { get; set; }
         public DateOnly FechaVencimiento { get; set; }
         public EstadoPrestamo Estado { get; set; }
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
     }
 }

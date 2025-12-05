@@ -85,7 +85,7 @@ namespace LoanTrack.Application.Services
         public async Task<ClienteReadDTO> Update(int id, ClienteUpdateDto dto)
         {
 
-            var cliente = await _repo.GetById(dto.Id);
+            var cliente = await _repo.GetById(dto.ClienteId);
 
             if (cliente == null)
                 throw new ArgumentException("Cliente no existe");

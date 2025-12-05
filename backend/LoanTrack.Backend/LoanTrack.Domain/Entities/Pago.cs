@@ -11,14 +11,14 @@ namespace LoanTrack.Domain.Entities
     public class Pago
     {
         [Key]
-        public int IdPago { get; set; }
+        public int PagoId { get; set; }
         public decimal MontoPagado { get; set; }
         public DateOnly FechaPago { get; set; }
         public MetodoPago MetodoPago { get; set; }
         public string Observacion { get; set; } = string.Empty;
 
         //relaciones
-        public int IdPrestamo { get; set; }
+        public int PrestamoId { get; set; }
         public Prestamo Prestamo { get; set; }
     }
 }

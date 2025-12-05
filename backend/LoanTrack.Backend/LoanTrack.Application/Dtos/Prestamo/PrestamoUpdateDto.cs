@@ -10,6 +10,7 @@ namespace LoanTrack.Application.Dtos.Prestamo
 {
     public class PrestamoUpdateDto
     {
+        public int PrestamoId { get; set; }
         public decimal MontoPrestado { get; set; }
         public decimal TasaInteres { get; set; }
         public int Plazo { get; set; } // en meses
@@ -17,6 +18,6 @@ namespace LoanTrack.Application.Dtos.Prestamo
         public decimal MontoPagado { get; set; }
         public DateOnly FechaVencimiento { get; set; }
         public EstadoPrestamo Estado { get; set; }
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
     }
 }

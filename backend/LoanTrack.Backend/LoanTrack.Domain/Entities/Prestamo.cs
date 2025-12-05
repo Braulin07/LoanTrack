@@ -11,7 +11,7 @@ namespace LoanTrack.Domain.Entities
     public class Prestamo
     {
         [Key]
-        public int IdPrestamo { get; set; }
+        public int PrestamoId { get; set; }
         public decimal MontoPrestado { get; set; }
         [Range(1,100)]
         public decimal TasaInteres { get; set; }
@@ -23,7 +23,7 @@ namespace LoanTrack.Domain.Entities
         public EstadoPrestamo Estado { get; set; }
 
         //relaciones
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
         public ICollection<Pago> Pagos { get; set; }
     }

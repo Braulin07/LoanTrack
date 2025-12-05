@@ -37,7 +37,7 @@ namespace LoanTrack.Application.Services
         public async Task<PrestamoUpdateDto> Update( PrestamoUpdateDto dto)
         {
             var entidad = _mapper.Map<Prestamo>(dto);
-            if (entidad.IdPrestamo <= 0) throw new KeyNotFoundException("ID Invalido o Inexistente");
+            if (entidad.PrestamoId <= 0) throw new KeyNotFoundException("ID Invalido o Inexistente");
 
             await _repo.Update(entidad);
 

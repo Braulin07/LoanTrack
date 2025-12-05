@@ -18,19 +18,19 @@ namespace LoanTrack.Infrastructure.Repositories
         }
 
 
-        public async Task<decimal> GetPagoSaldoHoyPrestamosPorCliente(int idCliente)
+        public async Task<decimal> GetPagoSaldoHoyPrestamosPorCliente(int clienteId)
         {
             return await _context.Prestamos
-            .Where(x => x.IdCliente == idCliente)
+            .Where(x => x.ClienteId == clienteId)
             .SumAsync(x =>
             (x.MontoPrestado - x.MontoPagado) +
             ((x.MontoPrestado - x.MontoPagado) * x.TasaInteres * x.Plazo));
 
         }
 
-        public async Task<IEnumerable<Prestamo>> GetPrestamosActivosPorCliente(int idCliente)
+        public async Task<IEnumerable<Prestamo>> GetPrestamosActivosPorCliente(int clienteId)
         {
-            return await _context.Prestamos.Where(x => x.IdCliente == idCliente && x.Estado == EstadoPrestamo.Activo)
+            return await _context.Prestamos.Where(x => x.ClienteId == clienteId && x.Estado == EstadoPrestamo.Activo)
                                                .ToListAsync();
         }
 

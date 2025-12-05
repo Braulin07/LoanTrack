@@ -15,7 +15,7 @@ namespace LoanTrack.Domain.Entities
             Activo = true;
         }
         [Key]
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
         [Required]
         [MaxLength(20)]
         public string Nombre { get; set; } = string.Empty;

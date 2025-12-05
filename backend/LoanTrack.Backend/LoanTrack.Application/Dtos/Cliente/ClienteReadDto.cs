@@ -8,7 +8,7 @@ namespace LoanTrack.Application.Dtos.Cliente
 {
     public class ClienteReadDTO
     {
-        public int IdCliente { get; set; }
+        public int ClienteId { get; set; }
 
         public string Nombre { get; set; } = string.Empty;
 

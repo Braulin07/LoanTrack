@@ -9,7 +9,7 @@ namespace LoanTrack.Application.Dtos
 {
     public class ClienteUpdateDto
     {
-        public int Id { get; set; }
+        public int ClienteId { get; set; }
         public string Nombre { get; set; } = string.Empty;
         [MaxLength(20)]
         public string Apellido { get; set; } = string.Empty;
