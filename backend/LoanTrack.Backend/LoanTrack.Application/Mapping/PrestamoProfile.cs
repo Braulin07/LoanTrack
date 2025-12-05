@@ -15,6 +15,10 @@ namespace LoanTrack.Application.Mapping
         {
             //Entidad =>  DTO
             CreateMap<Prestamo, PrestamoReadDto>();
+
+            //DTO => Entidad
+            CreateMap<PrestamoCreateDto, Prestamo>();
+            CreateMap<PrestamoUpdateDto, Prestamo>();
         }
     }
 }

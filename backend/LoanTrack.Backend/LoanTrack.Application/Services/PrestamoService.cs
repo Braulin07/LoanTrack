@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using LoanTrack.Application.Dtos.Prestamo;
 using LoanTrack.Application.Interfaces;
+using LoanTrack.Domain.Entities;
 using LoanTrack.Domain.Enums;
 using LoanTrack.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,35 @@ namespace LoanTrack.Application.Services
             _repo = repo;
             _mapper = mapper;
         }
+
+        public async Task<PrestamoCreateDto> Create(PrestamoCreateDto createDto)
+        {
+            var entidad = _mapper.Map<Prestamo>(createDto);
+            if (entidad == null) throw new Exception("La Entidad no puede ser Nula o Vacia");
+
+            await _repo.Create(entidad);
+
+            return createDto;
+        }
+
+        public async Task<PrestamoUpdateDto> Update( PrestamoUpdateDto dto)
+        {
+            var entidad = _mapper.Map<Prestamo>(dto);
+            if (entidad.IdPrestamo <= 0) throw new KeyNotFoundException("ID Invalido o Inexistente");
+
+            await _repo.Update(entidad);
+
+            return dto;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var response = await _repo.GetById(id);
+            if (response == null) throw new Exception("False: Usuario NO fue eliminado");
+
+            return true;
+        }
+
         public Task<decimal> GetPagoSaldoHoyPrestamosPorCliente(int idCliente)
         {
             throw new NotImplementedException();
@@ -57,5 +88,7 @@ namespace LoanTrack.Application.Services
 
             return dto;
         }
+
+        
     }
 }
