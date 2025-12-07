@@ -1,5 +1,5 @@
-﻿using LoanTrack.Domain.Entities;
-using LoanTrack.Domain.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Repositories;
+using LoanTrack.Domain.Entities;
 using LoanTrack.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

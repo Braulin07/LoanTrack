@@ -1,4 +1,4 @@
-﻿using LoanTrack.Application.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Application.Mapping;
 using LoanTrack.Application.Services;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,9 +1,9 @@
 ﻿using LoanTrack.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using LoanTrack.Application.Interfaces;
 using LoanTrack.Application.Dtos;
 using LoanTrack.Application.Dtos.Cliente;
+using LoanTrack.Application.Interfaces.Services;
 namespace LoanTrack.WebAPI.Controllers
 {
     [Route("api/[controller]")]
