@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Domain.Interfaces
+namespace LoanTrack.Application.Interfaces.Repositories
 {
     public interface IPagoRepository : IGenericRepository<Pago>
     {

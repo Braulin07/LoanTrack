@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Application.Interfaces
+namespace LoanTrack.Application.Interfaces.Services
 {
     public interface IPrestamoService
     {

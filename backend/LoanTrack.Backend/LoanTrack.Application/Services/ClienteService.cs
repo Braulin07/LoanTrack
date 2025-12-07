@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using LoanTrack.Application.Dtos;
 using LoanTrack.Application.Dtos.Cliente;
-using LoanTrack.Application.Interfaces;
+using LoanTrack.Application.Interfaces.Repositories;
+using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Domain.Entities;
-using LoanTrack.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

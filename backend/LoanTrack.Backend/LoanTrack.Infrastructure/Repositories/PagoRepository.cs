@@ -1,6 +1,7 @@
-﻿using LoanTrack.Domain.Entities;
-using LoanTrack.Domain.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Repositories;
+using LoanTrack.Domain.Entities;
 using LoanTrack.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,33 @@ namespace LoanTrack.Infrastructure.Repositories
         {
         }
 
-        public Task<IEnumerable<Pago>> GetPagosEntreFechas(DateOnly fechaInicio, DateOnly fechaFin)
+        public async Task<IEnumerable<Pago>> GetPagosEntreFechas(DateOnly fechaInicio, DateOnly fechaFin)
         {
-            throw new NotImplementedException();
+            return await _context.Pagos
+                .Where(x => x.FechaPago >= fechaInicio && x.FechaPago <= fechaFin)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Pago>> GetPagosPorPrestamo(int idPrestamo)
+        public async Task<IEnumerable<Pago>> GetPagosPorPrestamo(int prestamoId)
         {
-            throw new NotImplementedException();
+            return await _context.Pagos
+                .Where(x => x.PrestamoId == prestamoId)
+                .ToListAsync();
         }
 
-        public Task<decimal> GetTotalPagadoPorPrestamo(int idPrestamo)
+        public async Task<decimal> GetTotalPagadoPorPrestamo(int prestamoId)
         {
-            throw new NotImplementedException();
+            return await _context.Pagos
+                .Where(x => x.PrestamoId == prestamoId)
+                .SumAsync(x => x.MontoPagado);
         }
 
-        public Task<Pago> GetUltimoPago(int idPrestamo)
+        public async Task<Pago> GetUltimoPago(int prestamoId)
         {
-            throw new NotImplementedException();
+            return await _context.Pagos
+                .Where(x => x.PrestamoId == prestamoId)
+                .OrderByDescending(x => x.FechaPago)
+                .LastAsync();
         }
     }
 }
