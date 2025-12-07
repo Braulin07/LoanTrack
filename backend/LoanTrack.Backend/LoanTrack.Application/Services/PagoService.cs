@@ -32,7 +32,11 @@ namespace LoanTrack.Application.Services
 
         public async Task<PagoUpdateDto> Update(PagoUpdateDto pagoDto)
         {
-            var entidad = _mapper.Map<Pago>(pagoDto);
+            var entidad = await _repo.GetById(pagoDto.PagoId);
+            if (entidad == null) throw new KeyNotFoundException("Pago no encontrado");
+
+            _mapper.Map(pagoDto, entidad);
+
             await _repo.Update(entidad);
             return pagoDto;
         }

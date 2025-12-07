@@ -42,7 +42,7 @@ namespace LoanTrack.Infrastructure.Repositories
             return await _context.Pagos
                 .Where(x => x.PrestamoId == prestamoId)
                 .OrderByDescending(x => x.FechaPago)
-                .FirstAsync();
+                .LastAsync();
         }
     }
 }
