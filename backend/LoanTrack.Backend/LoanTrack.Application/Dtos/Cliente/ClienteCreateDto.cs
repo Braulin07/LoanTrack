@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Application.Dtos
+namespace LoanTrack.Application.Dtos.Cliente
 {
-    public class ClienteUpdateDto
+    public class ClienteCreateDto
     {
-        public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         [MaxLength(20)]
         public string Apellido { get; set; } = string.Empty;

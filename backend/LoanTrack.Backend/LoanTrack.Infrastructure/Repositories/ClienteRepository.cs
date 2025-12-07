@@ -20,6 +20,7 @@ namespace LoanTrack.Infrastructure.Repositories
         public async Task<Cliente> GetByCedula(string cedula)
         {
             return await _context.Clientes.FirstOrDefaultAsync(c => c.Cedula == cedula);
+            
         }
 
         public async Task<IEnumerable<Cliente>> GetClientesActivos()

@@ -6,25 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Domain.Entities
+namespace LoanTrack.Application.Dtos.Prestamo
 {
-    public class Prestamo
+    public class PrestamoReadDto
     {
-        [Key]
         public int PrestamoId { get; set; }
         public decimal MontoPrestado { get; set; }
-        [Range(1,100)]
         public decimal TasaInteres { get; set; }
-        public int Plazo {  get; set; } // en meses
-        public  decimal MontoTotal { get; set; }
+        public int Plazo { get; set; } // en meses
+        public decimal MontoTotal { get; set; }
         public decimal MontoPagado { get; set; }
         public DateOnly FechaInicio { get; set; }
         public DateOnly FechaVencimiento { get; set; }
         public EstadoPrestamo Estado { get; set; }
-
-        //relaciones
-        public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
-        public ICollection<Pago> Pagos { get; set; }
     }
 }

@@ -15,7 +15,11 @@ namespace LoanTrack.Infrastructure.Context
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Pago> Pagos { get; set; }
+
+
        
 
     }
+
+
 }

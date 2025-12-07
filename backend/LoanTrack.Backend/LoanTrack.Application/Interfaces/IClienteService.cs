@@ -1,4 +1,5 @@
 ﻿using LoanTrack.Application.Dtos;
+using LoanTrack.Application.Dtos.Cliente;
 using LoanTrack.Domain.Entities;
 using System;
 using System.Collections.Generic;

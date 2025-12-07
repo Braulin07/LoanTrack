@@ -15,7 +15,9 @@ namespace LoanTrack.Application
         public static void AddApplicationServiceRegistration(this IServiceCollection services)
         {
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IPrestamoService, PrestamoService>();
             services.AddAutoMapper(typeof(ClienteProfile));
+            services.AddAutoMapper(typeof(PrestamoProfile));
         }
     }
 }

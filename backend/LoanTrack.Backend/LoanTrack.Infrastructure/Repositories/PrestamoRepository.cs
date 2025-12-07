@@ -1,6 +1,8 @@
 ﻿using LoanTrack.Domain.Entities;
+using LoanTrack.Domain.Enums;
 using LoanTrack.Domain.Interfaces;
 using LoanTrack.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,29 +17,38 @@ namespace LoanTrack.Infrastructure.Repositories
         {
         }
 
-        public Task<decimal> GetMontoTotalPrestamosPorCliente(int idCliente)
+
+        public async Task<decimal> GetPagoSaldoHoyPrestamosPorCliente(int clienteId)
         {
-            throw new NotImplementedException();
+            return await _context.Prestamos
+            .Where(x => x.ClienteId == clienteId)
+            .SumAsync(x =>
+            (x.MontoPrestado - x.MontoPagado) +
+            ((x.MontoPrestado - x.MontoPagado) * x.TasaInteres * x.Plazo));
+
         }
 
-        public Task<IEnumerable<Prestamo>> GetPrestamosActivosPorCliente(int idCliente)
+        public async Task<IEnumerable<Prestamo>> GetPrestamosActivosPorCliente(int clienteId)
         {
-            throw new NotImplementedException();
+            return await _context.Prestamos.Where(x => x.ClienteId == clienteId && x.Estado == EstadoPrestamo.Activo)
+                                               .ToListAsync();
         }
 
-        public Task<IEnumerable<Prestamo>> GetPrestamosConVencimientoHoy()
+        public async Task<IEnumerable<Prestamo>> GetPrestamosConVencimientoHoy()
         {
-            throw new NotImplementedException();
+            DateOnly FechaHoy = DateOnly.FromDateTime(DateTime.Now);
+            return await _context.Prestamos.Where(x => x.FechaVencimiento == FechaHoy).ToListAsync();
         }
 
-        public Task<IEnumerable<Prestamo>> GetPrestamosPorEstado(string estado)
+        public async Task<IEnumerable<Prestamo>> GetPrestamosPorEstado(EstadoPrestamo estado)
         {
-            throw new NotImplementedException();
+           return await _context.Prestamos.Where(x => x.Estado == estado).ToListAsync();
         }
 
-        public Task<IEnumerable<Prestamo>> GetPrestamosVencidos()
+        public async Task<IEnumerable<Prestamo>> GetPrestamosVencidos()
         {
-            throw new NotImplementedException();
+            DateOnly FechaHoy = DateOnly.FromDateTime(DateTime.Now);
+            return await _context.Prestamos.Where(x => x.FechaVencimiento <=FechaHoy).ToListAsync();
         }
     }
 }
