@@ -95,17 +95,8 @@ namespace LoanTrack.Application.Services
         public async Task<ClienteReadDTO> Update(int id, ClienteUpdateDto dto)
         {
 
-<<<<<<< Updated upstream
-            var cliente = await _repo.GetById(dto.ClienteId);
-=======
-<<<<<<< Updated upstream
-            var cliente = await _repo.GetById(dto.Id);
-=======
             await _validatorUp.ValidateAndThrowAsync(dto);
             var cliente = await _repo.GetById(dto.ClienteId);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-
             if (cliente == null)
                 throw new ArgumentException("Cliente no existe");
 

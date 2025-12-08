@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-<<<<<<< Updated upstream
-=======
 using FluentValidation;
->>>>>>> Stashed changes
 using LoanTrack.Application.Dtos.Prestamo;
 using LoanTrack.Application.Interfaces;
 using LoanTrack.Domain.Entities;
@@ -21,31 +18,19 @@ namespace LoanTrack.Application.Services
     {
         private readonly IPrestamoRepository _repo;
         private readonly IMapper _mapper;
-<<<<<<< Updated upstream
-
-        public PrestamoService(IPrestamoRepository repo, IMapper mapper)
-        {
-            _repo = repo;
-            _mapper = mapper;
-=======
         private readonly IValidator<PrestamoCreateDto> _validatorCr;
         private readonly IValidator<PrestamoUpdateDto> _validatorUp;
-
         public PrestamoService(IPrestamoRepository repo, IMapper mapper, IValidator<PrestamoUpdateDto> validatorUp,IValidator<PrestamoCreateDto> validatorCr)
         {
             _repo = repo;
             _mapper = mapper;
             _validatorUp = validatorUp;
             _validatorCr = validatorCr;
->>>>>>> Stashed changes
         }
 
         public async Task<PrestamoCreateDto> Create(PrestamoCreateDto createDto)
         {
-<<<<<<< Updated upstream
-=======
             await _validatorCr.ValidateAndThrowAsync(createDto);
->>>>>>> Stashed changes
             var entidad = _mapper.Map<Prestamo>(createDto);
             if (entidad == null) throw new Exception("La Entidad no puede ser Nula o Vacia");
 
@@ -56,10 +41,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<PrestamoUpdateDto> Update( PrestamoUpdateDto dto)
         {
-<<<<<<< Updated upstream
-=======
             await _validatorUp.ValidateAndThrowAsync(dto);
->>>>>>> Stashed changes
             var entidad = _mapper.Map<Prestamo>(dto);
             if (entidad.PrestamoId <= 0) throw new KeyNotFoundException("ID Invalido o Inexistente");
 

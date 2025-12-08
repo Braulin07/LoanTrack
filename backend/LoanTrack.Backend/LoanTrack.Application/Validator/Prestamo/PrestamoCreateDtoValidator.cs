@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace LoanTrack.Application.Validator.Prestamo
 {
-    internal class PrestamoCreateDtoValidator:AbstractValidator<PrestamoCreateDto>
+    public class PrestamoCreateDtoValidator:AbstractValidator<PrestamoCreateDto>
     {
         public PrestamoCreateDtoValidator()
         {

@@ -22,13 +22,8 @@ namespace LoanTrack.Application
             services.AddScoped<IPrestamoService, PrestamoService>();
             services.AddAutoMapper(typeof(ClienteProfile));
             services.AddAutoMapper(typeof(PrestamoProfile));
-            services.AddAutoMapper(typeof(PrestamoProfile));
-            services.AddValidatorsFromAssemblyContaining<ClienteCreateDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<ClienteUpdateDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<PrestamoCreateDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<PrestamoUpdateDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<PagoCreateDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<PagoUpdateDtoValidator>();
+            services.AddAutoMapper(typeof(PagoProfile));
+            services.AddValidatorsFromAssembly(typeof(ClienteCreateDtoValidator).Assembly);
         }
     }
 }

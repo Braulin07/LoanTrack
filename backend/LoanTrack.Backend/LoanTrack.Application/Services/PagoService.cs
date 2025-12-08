@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-<<<<<<< Updated upstream
-=======
 using FluentValidation;
->>>>>>> Stashed changes
 using LoanTrack.Application.Dtos.Pago;
 using LoanTrack.Application.Interfaces;
 using LoanTrack.Domain.Entities;
@@ -19,13 +16,6 @@ namespace LoanTrack.Application.Services
     {
         private readonly IPagoRepository _repo;
         private readonly IMapper _mapper;
-<<<<<<< Updated upstream
-
-        public PagoService(IPagoRepository repo, IMapper mapper)
-        {
-            _repo = repo;
-            _mapper = mapper;
-=======
         private readonly IValidator<PagoCreateDto> _ValidatorCr;
         private readonly IValidator<PagoUpdateDto> _ValidatorUp;
 
@@ -35,16 +25,12 @@ namespace LoanTrack.Application.Services
             _mapper = mapper;
             _ValidatorUp = validatorUp;
             _ValidatorCr = validatorCr;
->>>>>>> Stashed changes
         }
 
 
         public async Task<PagoCreateDto> Create(PagoCreateDto pagoDto)
         {
-<<<<<<< Updated upstream
-=======
             await _ValidatorCr.ValidateAndThrowAsync(pagoDto);
->>>>>>> Stashed changes
             var entidad = _mapper.Map<Pago>(pagoDto);
             await _repo.Create(entidad);
             return pagoDto;
@@ -52,10 +38,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<PagoUpdateDto> Update(PagoUpdateDto pagoDto)
         {
-<<<<<<< Updated upstream
-=======
             await _ValidatorUp.ValidateAndThrowAsync(pagoDto);
->>>>>>> Stashed changes
             var entidad = _mapper.Map<Pago>(pagoDto);
             await _repo.Update(entidad);
             return pagoDto;
@@ -66,7 +49,6 @@ namespace LoanTrack.Application.Services
         {
             var entidad = await _repo.GetById(pagoId);
             if (entidad == null) return false;
-
             await _repo.Delete(entidad);
             return true;
         }

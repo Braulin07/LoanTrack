@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Validator.Pago
 {
-    internal class PagoCreateDtoValidator: AbstractValidator<PagoCreateDto>
+    public class PagoCreateDtoValidator: AbstractValidator<PagoCreateDto>
     {
         public PagoCreateDtoValidator()
         {
