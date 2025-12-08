@@ -1,6 +1,10 @@
-﻿using LoanTrack.Application.Interfaces;
+﻿using FluentValidation;
+using LoanTrack.Application.Interfaces;
 using LoanTrack.Application.Mapping;
 using LoanTrack.Application.Services;
+using LoanTrack.Application.Validator.Cliente;
+using LoanTrack.Application.Validator.Pago;
+using LoanTrack.Application.Validator.Prestamo;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,6 +22,13 @@ namespace LoanTrack.Application
             services.AddScoped<IPrestamoService, PrestamoService>();
             services.AddAutoMapper(typeof(ClienteProfile));
             services.AddAutoMapper(typeof(PrestamoProfile));
+            services.AddAutoMapper(typeof(PrestamoProfile));
+            services.AddValidatorsFromAssemblyContaining<ClienteCreateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<ClienteUpdateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<PrestamoCreateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<PrestamoUpdateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<PagoCreateDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<PagoUpdateDtoValidator>();
         }
     }
 }
