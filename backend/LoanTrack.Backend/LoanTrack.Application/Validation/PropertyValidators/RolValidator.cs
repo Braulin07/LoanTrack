@@ -12,10 +12,11 @@ namespace LoanTrack.Application.Validation.PropertyValidators
         public static void Validate(RolUsuario rol)
         {
             if (rol <= 0)
-                throw new Exception("Rol Inexistente");
+                throw new KeyNotFoundException("Rol Inexistente");
 
-            if (rol >= 4)
-                throw new Exception("Rol Inexistente");
+
+            //if (rol >= 4)
+            //    throw new KeyNotFoundException("Rol Inexistente");
         }
     }
 }

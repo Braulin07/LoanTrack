@@ -25,6 +25,8 @@ namespace LoanTrack.Infrastructure
             services.AddScoped<IPagoRepository, PagoRepository>();
 
             services.AddScoped<IPrestamoRepository, PrestamoRepository>();
+
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
     }
 }

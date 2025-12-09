@@ -17,9 +17,12 @@ namespace LoanTrack.Application
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IPrestamoService, PrestamoService>();
             services.AddScoped<IPagoService, PagoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddAutoMapper(typeof(ClienteProfile));
             services.AddAutoMapper(typeof(PrestamoProfile));
             services.AddAutoMapper(typeof(PagoProfile));
+            services.AddAutoMapper(typeof(UsuarioProfile));
+
         }
     }
 }

@@ -15,15 +15,11 @@ namespace LoanTrack.Application.Services
     {
         private readonly IUsuarioRepository _repo;
         private readonly IMapper _mapper;
-        private readonly IValidator<PagoCreateDto> _validatorCr;
-        private readonly IValidator<PagoUpdateDto> _validatorUp;
 
-        public UsuarioService(IUsuarioRepository repo, IMapper mapper, IValidator<PagoCreateDto> validatorCr, IValidator<PagoUpdateDto> validatorUp)
+        public UsuarioService(IUsuarioRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
-            _validatorCr = validatorCr;
-            _validatorUp = validatorUp;
         }
 
 
