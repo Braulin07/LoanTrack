@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using LoanTrack.Application.Dtos.Pago;
 using LoanTrack.Application.Dtos.Usuario;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
@@ -16,24 +18,27 @@ namespace LoanTrack.Application.Services
     {
         private readonly IUsuarioRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IValidator<PagoCreateDto> _validatorCr;
+        private readonly IValidator<PagoUpdateDto> _validatorUp;
 
-        public UsuarioService(IUsuarioRepository repo, IMapper mapper)
+        public UsuarioService(IUsuarioRepository repo, IMapper mapper, IValidator<PagoCreateDto> validatorCr, IValidator<PagoUpdateDto> validatorUp)
         {
             _repo = repo;
             _mapper = mapper;
+            _validatorCr = validatorCr;
+            _validatorUp = validatorUp;
         }
 
 
         public async Task ActualizarUltimoLoginAsync(int usuarioId)
         {
+
             await _repo.ActualizarUltimoLoginAsync(usuarioId);
         }
 
         public async Task<bool> EmailExisteAsync(string email)
         {
-            var entidad = await _repo.EmailExisteAsync(email);
-
-            return true;
+            return await _repo.EmailExisteAsync(email); ;
         }
 
         public async Task<IEnumerable<UsuarioReadDto>> GetByRolAsync(RolUsuario rol)
