@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using FluentValidation.Validators;
 using LoanTrack.Application.Dtos.Pago;
 using LoanTrack.Application.Dtos.Usuario;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
+using LoanTrack.Application.Validation.PropertyValidators;
 using LoanTrack.Domain.Entities;
 using LoanTrack.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Services
 {
@@ -32,17 +29,19 @@ namespace LoanTrack.Application.Services
 
         public async Task ActualizarUltimoLoginAsync(int usuarioId)
         {
-
+            IdValidator.Validate(usuarioId);
             await _repo.ActualizarUltimoLoginAsync(usuarioId);
         }
 
         public async Task<bool> EmailExisteAsync(string email)
         {
+            EmailValidator.Validate(email);
             return await _repo.EmailExisteAsync(email); ;
         }
 
         public async Task<IEnumerable<UsuarioReadDto>> GetByRolAsync(RolUsuario rol)
         {
+            RolValidator.Validate(rol);
             var entidad = await _repo.GetByRolAsync(rol);
             var dto = _mapper.Map<IEnumerable<UsuarioReadDto>>(entidad);
 
@@ -51,6 +50,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<UsuarioReadDto?> GetConClienteAsync(int usuarioId)
         {
+            IdValidator.Validate(usuarioId);
             var entidad = await _repo.GetConClienteAsync(usuarioId);
             var dto = _mapper.Map<UsuarioReadDto>(entidad);
 
@@ -59,6 +59,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<UsuarioReadDto?> GetPorEmailAsync(string email)
         {
+            EmailValidator.Validate(email);
             var entidad = await _repo.GetPorEmailAsync(email);
             var dto = _mapper.Map<UsuarioReadDto>(entidad);
 

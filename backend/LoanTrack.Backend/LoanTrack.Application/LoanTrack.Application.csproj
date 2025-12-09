@@ -17,8 +17,4 @@
     <ProjectReference Include="..\LoanTrack.Domain\LoanTrack.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validation\PropertyValidators\" />
-  </ItemGroup>
-
 </Project>
