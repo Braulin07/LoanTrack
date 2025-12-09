@@ -31,5 +31,7 @@ namespace LoanTrack.Domain.Entities
         public DateTime? UltimoLogin { get; set; }
         public DateTime FechaCreacion { get; set; }
 
+        public Cliente? Cliente { get; set; }
+
     }
 }
