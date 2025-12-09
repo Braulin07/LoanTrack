@@ -4,6 +4,7 @@ using LoanTrack.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanTrack.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251205045559_UpdatingPropertieskey")]
+    partial class UpdatingPropertieskey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,14 +67,7 @@ namespace LoanTrack.Infrastructure.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<int?>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("ClienteId");
-
-                    b.HasIndex("UsuarioId")
-                        .IsUnique()
-                        .HasFilter("[UsuarioId] IS NOT NULL");
 
                     b.ToTable("Clientes");
                 });
@@ -149,59 +145,6 @@ namespace LoanTrack.Infrastructure.Migrations
                     b.ToTable("Prestamos");
                 });
 
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Usuario", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"));
-
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UltimoLogin")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UsuarioId");
-
-                    b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Cliente", b =>
-                {
-                    b.HasOne("LoanTrack.Domain.Entities.Usuario", "Usuario")
-                        .WithOne("Cliente")
-                        .HasForeignKey("LoanTrack.Domain.Entities.Cliente", "UsuarioId");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("LoanTrack.Domain.Entities.Pago", b =>
                 {
                     b.HasOne("LoanTrack.Domain.Entities.Prestamo", "Prestamo")
@@ -232,11 +175,6 @@ namespace LoanTrack.Infrastructure.Migrations
             modelBuilder.Entity("LoanTrack.Domain.Entities.Prestamo", b =>
                 {
                     b.Navigation("Pagos");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Cliente");
                 });
 #pragma warning restore 612, 618
         }

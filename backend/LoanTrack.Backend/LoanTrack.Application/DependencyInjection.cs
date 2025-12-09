@@ -1,4 +1,4 @@
-﻿using LoanTrack.Application.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Application.Mapping;
 using LoanTrack.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,14 @@ namespace LoanTrack.Application
         public static void AddApplicationServiceRegistration(this IServiceCollection services)
         {
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IPrestamoService, PrestamoService>();
+            services.AddScoped<IPagoService, PagoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddAutoMapper(typeof(ClienteProfile));
+            services.AddAutoMapper(typeof(PrestamoProfile));
+            services.AddAutoMapper(typeof(PagoProfile));
+            services.AddAutoMapper(typeof(UsuarioProfile));
+
         }
     }
 }

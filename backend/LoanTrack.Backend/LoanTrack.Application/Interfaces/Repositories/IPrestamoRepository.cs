@@ -1,11 +1,12 @@
 ﻿using LoanTrack.Domain.Entities;
+using LoanTrack.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Domain.Interfaces
+namespace LoanTrack.Application.Interfaces.Repositories
 {
     public interface IPrestamoRepository : IGenericRepository<Prestamo>
     {
@@ -16,10 +17,10 @@ namespace LoanTrack.Domain.Interfaces
         Task<IEnumerable<Prestamo>> GetPrestamosVencidos();
 
         //ver prestamos segun su estado
-        Task<IEnumerable<Prestamo>> GetPrestamosPorEstado(string estado);
+        Task<IEnumerable<Prestamo>> GetPrestamosPorEstado(EstadoPrestamo estado);
 
         //Calcular monto total de prestamos de un cliente
-        Task<decimal> GetMontoTotalPrestamosPorCliente(int idCliente);
+        Task<decimal> GetPagoSaldoHoyPrestamosPorCliente(int idCliente);
 
         //Lista de prestamos que deben ser pagados hoy
         Task<IEnumerable<Prestamo>> GetPrestamosConVencimientoHoy();

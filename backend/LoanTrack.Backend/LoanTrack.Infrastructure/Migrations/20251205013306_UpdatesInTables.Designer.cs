@@ -4,6 +4,7 @@ using LoanTrack.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanTrack.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251205013306_UpdatesInTables")]
+    partial class UpdatesInTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace LoanTrack.Infrastructure.Migrations
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Cliente", b =>
                 {
-                    b.Property<int>("ClienteId")
+                    b.Property<int>("IdCliente")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCliente"));
 
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
@@ -64,28 +67,24 @@ namespace LoanTrack.Infrastructure.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<int?>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClienteId");
-
-                    b.HasIndex("UsuarioId")
-                        .IsUnique()
-                        .HasFilter("[UsuarioId] IS NOT NULL");
+                    b.HasKey("IdCliente");
 
                     b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Pago", b =>
                 {
-                    b.Property<int>("PagoId")
+                    b.Property<int>("IdPago")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PagoId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPago"));
 
                     b.Property<DateOnly>("FechaPago")
                         .HasColumnType("date");
+
+                    b.Property<int>("IdPrestamo")
+                        .HasColumnType("int");
 
                     b.Property<int>("MetodoPago")
                         .HasColumnType("int");
@@ -97,25 +96,25 @@ namespace LoanTrack.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PrestamoId")
+                    b.Property<int>("PrestamoIdPrestamo")
                         .HasColumnType("int");
 
-                    b.HasKey("PagoId");
+                    b.HasKey("IdPago");
 
-                    b.HasIndex("PrestamoId");
+                    b.HasIndex("PrestamoIdPrestamo");
 
                     b.ToTable("Pagos");
                 });
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Prestamo", b =>
                 {
-                    b.Property<int>("PrestamoId")
+                    b.Property<int>("IdPrestamo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrestamoId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPrestamo"));
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int>("ClienteIdCliente")
                         .HasColumnType("int");
 
                     b.Property<int>("Estado")
@@ -126,6 +125,9 @@ namespace LoanTrack.Infrastructure.Migrations
 
                     b.Property<DateOnly>("FechaVencimiento")
                         .HasColumnType("date");
+
+                    b.Property<int>("IdCliente")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("MontoPagado")
                         .HasColumnType("decimal(18,2)");
@@ -142,71 +144,18 @@ namespace LoanTrack.Infrastructure.Migrations
                     b.Property<decimal>("TasaInteres")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("PrestamoId");
+                    b.HasKey("IdPrestamo");
 
-                    b.HasIndex("ClienteId");
+                    b.HasIndex("ClienteIdCliente");
 
                     b.ToTable("Prestamos");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Usuario", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"));
-
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UltimoLogin")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UsuarioId");
-
-                    b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Cliente", b =>
-                {
-                    b.HasOne("LoanTrack.Domain.Entities.Usuario", "Usuario")
-                        .WithOne("Cliente")
-                        .HasForeignKey("LoanTrack.Domain.Entities.Cliente", "UsuarioId");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Pago", b =>
                 {
                     b.HasOne("LoanTrack.Domain.Entities.Prestamo", "Prestamo")
                         .WithMany("Pagos")
-                        .HasForeignKey("PrestamoId")
+                        .HasForeignKey("PrestamoIdPrestamo")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -217,7 +166,7 @@ namespace LoanTrack.Infrastructure.Migrations
                 {
                     b.HasOne("LoanTrack.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Prestamos")
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("ClienteIdCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -232,11 +181,6 @@ namespace LoanTrack.Infrastructure.Migrations
             modelBuilder.Entity("LoanTrack.Domain.Entities.Prestamo", b =>
                 {
                     b.Navigation("Pagos");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Cliente");
                 });
 #pragma warning restore 612, 618
         }

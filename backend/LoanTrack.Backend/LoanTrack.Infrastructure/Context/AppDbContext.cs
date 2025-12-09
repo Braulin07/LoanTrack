@@ -15,7 +15,19 @@ namespace LoanTrack.Infrastructure.Context
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Pago> Pagos { get; set; }
-       
+        public DbSet<Usuario> Usuarios { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.Cliente)
+                .WithOne(c => c.Usuario)
+                .HasForeignKey<Cliente>(c => c.UsuarioId)
+                .IsRequired(false);
+        }
 
     }
+
 }

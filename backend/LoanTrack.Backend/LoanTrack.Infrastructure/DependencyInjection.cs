@@ -1,4 +1,4 @@
-﻿using LoanTrack.Domain.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Infrastructure.Context;
 using LoanTrack.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,7 @@ namespace LoanTrack.Infrastructure
         public static void AddInfrastructureServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("LoanTrackDBConnection")));
+
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
@@ -24,6 +25,8 @@ namespace LoanTrack.Infrastructure
             services.AddScoped<IPagoRepository, PagoRepository>();
 
             services.AddScoped<IPrestamoRepository, PrestamoRepository>();
+
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
     }
 }

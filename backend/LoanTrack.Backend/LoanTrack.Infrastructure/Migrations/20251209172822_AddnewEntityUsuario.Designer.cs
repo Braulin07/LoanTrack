@@ -4,6 +4,7 @@ using LoanTrack.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoanTrack.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251209172822_AddnewEntityUsuario")]
+    partial class AddnewEntityUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +72,7 @@ namespace LoanTrack.Infrastructure.Migrations
 
                     b.HasKey("ClienteId");
 
-                    b.HasIndex("UsuarioId")
-                        .IsUnique()
-                        .HasFilter("[UsuarioId] IS NOT NULL");
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Clientes");
                 });
@@ -196,8 +197,8 @@ namespace LoanTrack.Infrastructure.Migrations
             modelBuilder.Entity("LoanTrack.Domain.Entities.Cliente", b =>
                 {
                     b.HasOne("LoanTrack.Domain.Entities.Usuario", "Usuario")
-                        .WithOne("Cliente")
-                        .HasForeignKey("LoanTrack.Domain.Entities.Cliente", "UsuarioId");
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Usuario");
                 });
@@ -232,11 +233,6 @@ namespace LoanTrack.Infrastructure.Migrations
             modelBuilder.Entity("LoanTrack.Domain.Entities.Prestamo", b =>
                 {
                     b.Navigation("Pagos");
-                });
-
-            modelBuilder.Entity("LoanTrack.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Cliente");
                 });
 #pragma warning restore 612, 618
         }

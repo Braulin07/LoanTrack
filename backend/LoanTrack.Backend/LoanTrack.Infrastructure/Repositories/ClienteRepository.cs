@@ -1,5 +1,5 @@
-﻿using LoanTrack.Domain.Entities;
-using LoanTrack.Domain.Interfaces;
+﻿using LoanTrack.Application.Interfaces.Repositories;
+using LoanTrack.Domain.Entities;
 using LoanTrack.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +20,7 @@ namespace LoanTrack.Infrastructure.Repositories
         public async Task<Cliente> GetByCedula(string cedula)
         {
             return await _context.Clientes.FirstOrDefaultAsync(c => c.Cedula == cedula);
+            
         }
 
         public async Task<IEnumerable<Cliente>> GetClientesActivos()

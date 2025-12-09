@@ -1,8 +1,8 @@
-﻿using LoanTrack.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using LoanTrack.Application.Interfaces;
 using LoanTrack.Application.Dtos;
+using LoanTrack.Application.Dtos.Cliente;
+using LoanTrack.Application.Interfaces.Services;
 namespace LoanTrack.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,6 +15,7 @@ namespace LoanTrack.WebAPI.Controllers
         {
             _service = service;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClienteReadDTO>>> GetAll()
         {
@@ -22,6 +23,7 @@ namespace LoanTrack.WebAPI.Controllers
             
             return Ok(user);
         }
+
         [HttpGet("id/{id:int}")]
         public async Task<ActionResult<ClienteReadDTO>> GetById(int id)
         {
@@ -38,14 +40,14 @@ namespace LoanTrack.WebAPI.Controllers
         {
             var user = await _service.Create(dto);
 
-            return CreatedAtAction(nameof(GetById), new { id = user.IdCliente }, user);
+            return CreatedAtAction(nameof(GetById), new { id = user.ClienteId }, user);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<ClienteReadDTO>> Update(int id, [FromBody] ClienteUpdateDto dto)
         {
-            if (id != dto.Id)
-                return BadRequest();
+            if (id != dto.ClienteId) return BadRequest();
+
             var user = await _service.Update(id,dto);
             return Ok(user);
         }
