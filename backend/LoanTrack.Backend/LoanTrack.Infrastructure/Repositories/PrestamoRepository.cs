@@ -1,6 +1,6 @@
 ﻿using LoanTrack.Domain.Entities;
 using LoanTrack.Domain.Enums;
-using LoanTrack.Domain.Interfaces;
+using LoanTrack.Application.Interfaces;
 using LoanTrack.Infrastructure.Context;
 using LoanTrack.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

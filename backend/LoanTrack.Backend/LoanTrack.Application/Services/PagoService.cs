@@ -41,7 +41,7 @@ namespace LoanTrack.Application.Services
             await _ValidatorUp.ValidateAndThrowAsync(pagoDto);
             var entidad = _mapper.Map<Pago>(pagoDto);
 
-            var entidad = await _repo.GetById(pagoDto.PagoId);
+            entidad = await _repo.GetById(pagoDto.PagoId);
             if (entidad == null) throw new KeyNotFoundException("Pago no encontrado");
 
             _mapper.Map(pagoDto, entidad);

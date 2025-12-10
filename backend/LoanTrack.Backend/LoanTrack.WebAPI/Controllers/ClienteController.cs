@@ -1,4 +1,4 @@
-﻿using LoanTrack.Domain.Interfaces;
+﻿using LoanTrack.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LoanTrack.Application.Dtos;
