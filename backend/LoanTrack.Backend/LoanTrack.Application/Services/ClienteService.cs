@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using LoanTrack.Application.Dtos;
 using LoanTrack.Application.Dtos.Cliente;
 using LoanTrack.Application.Interfaces.Repositories;
@@ -6,6 +7,7 @@ using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,20 +18,27 @@ namespace LoanTrack.Application.Services
     {
         private readonly IClienteRepository _repo;
         private readonly IMapper _mapper;
-        public ClienteService(IClienteRepository repo, IMapper Mapper)
+        private readonly IValidator<ClienteCreateDto> _validatorCR;
+        private readonly IValidator<ClienteUpdateDto> _validatorUp;
+
+        public ClienteService(IClienteRepository repo, IMapper Mapper,IValidator<ClienteCreateDto> validatorCr, IValidator<ClienteUpdateDto> validatorUp)
         {
             _repo = repo;
             _mapper = Mapper;
+            _validatorCR = validatorCr;
+            _validatorUp = validatorUp;
         }
 
         public async Task<ClienteReadDTO> Create(ClienteCreateDto dto)
         {
+            await _validatorCR.ValidateAndThrowAsync(dto);
+
             var ValidacionCliente = await _repo.GetByCedula(dto.Cedula);
             if (ValidacionCliente != null)
             {
-
                 throw new ArgumentException("Esta cedula ya esta registrada");
             }
+            
             var entidad = _mapper.Map<Cliente>(dto);
              await _repo.Create(entidad);
             return _mapper.Map<ClienteReadDTO>(entidad);
@@ -37,6 +46,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<bool> Delete(int id)
         {
+
             var response = await _repo.GetById(id);
             if (response == null)
             {
@@ -85,8 +95,8 @@ namespace LoanTrack.Application.Services
         public async Task<ClienteReadDTO> Update(int id, ClienteUpdateDto dto)
         {
 
+            await _validatorUp.ValidateAndThrowAsync(dto);
             var cliente = await _repo.GetById(dto.ClienteId);
-
             if (cliente == null)
                 throw new ArgumentException("Cliente no existe");
 

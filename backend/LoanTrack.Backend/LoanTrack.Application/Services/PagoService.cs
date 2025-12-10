@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using LoanTrack.Application.Dtos.Pago;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
@@ -15,16 +16,21 @@ namespace LoanTrack.Application.Services
     {
         private readonly IPagoRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IValidator<PagoCreateDto> _ValidatorCr;
+        private readonly IValidator<PagoUpdateDto> _ValidatorUp;
 
-        public PagoService(IPagoRepository repo, IMapper mapper)
+        public PagoService(IPagoRepository repo, IMapper mapper,IValidator<PagoUpdateDto> validatorUp,IValidator<PagoCreateDto> validatorCr)
         {
             _repo = repo;
             _mapper = mapper;
+            _ValidatorUp = validatorUp;
+            _ValidatorCr = validatorCr;
         }
 
 
         public async Task<PagoCreateDto> Create(PagoCreateDto pagoDto)
         {
+            await _ValidatorCr.ValidateAndThrowAsync(pagoDto);
             var entidad = _mapper.Map<Pago>(pagoDto);
             await _repo.Create(entidad);
             return pagoDto;
@@ -32,6 +38,9 @@ namespace LoanTrack.Application.Services
 
         public async Task<PagoUpdateDto> Update(PagoUpdateDto pagoDto)
         {
+            await _ValidatorUp.ValidateAndThrowAsync(pagoDto);
+            var entidad = _mapper.Map<Pago>(pagoDto);
+
             var entidad = await _repo.GetById(pagoDto.PagoId);
             if (entidad == null) throw new KeyNotFoundException("Pago no encontrado");
 
@@ -46,7 +55,6 @@ namespace LoanTrack.Application.Services
         {
             var entidad = await _repo.GetById(pagoId);
             if (entidad == null) return false;
-
             await _repo.Delete(entidad);
             return true;
         }
