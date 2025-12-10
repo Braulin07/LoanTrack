@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using LoanTrack.Application.Dtos.Prestamo;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
@@ -17,15 +18,19 @@ namespace LoanTrack.Application.Services
     {
         private readonly IPrestamoRepository _repo;
         private readonly IMapper _mapper;
-
-        public PrestamoService(IPrestamoRepository repo, IMapper mapper)
+        private readonly IValidator<PrestamoCreateDto> _validatorCr;
+        private readonly IValidator<PrestamoUpdateDto> _validatorUp;
+        public PrestamoService(IPrestamoRepository repo, IMapper mapper, IValidator<PrestamoUpdateDto> validatorUp,IValidator<PrestamoCreateDto> validatorCr)
         {
             _repo = repo;
             _mapper = mapper;
+            _validatorUp = validatorUp;
+            _validatorCr = validatorCr;
         }
 
         public async Task<PrestamoCreateDto> Create(PrestamoCreateDto createDto)
         {
+            await _validatorCr.ValidateAndThrowAsync(createDto);
             var entidad = _mapper.Map<Prestamo>(createDto);
             if (entidad == null) throw new Exception("La Entidad no puede ser Nula o Vacia");
 
@@ -36,6 +41,7 @@ namespace LoanTrack.Application.Services
 
         public async Task<PrestamoUpdateDto> Update( PrestamoUpdateDto dto)
         {
+            await _validatorUp.ValidateAndThrowAsync(dto);
             var entidad = _mapper.Map<Prestamo>(dto);
             if (entidad.PrestamoId <= 0) throw new KeyNotFoundException("ID Invalido o Inexistente");
 

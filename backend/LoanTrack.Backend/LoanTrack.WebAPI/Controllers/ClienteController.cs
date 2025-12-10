@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+﻿using LoanTrack.Application.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LoanTrack.Application.Dtos;
 using LoanTrack.Application.Dtos.Cliente;

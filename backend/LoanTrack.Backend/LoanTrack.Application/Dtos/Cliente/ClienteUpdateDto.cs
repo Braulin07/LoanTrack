@@ -17,7 +17,6 @@ namespace LoanTrack.Application.Dtos
         public string Cedula { get; set; } = string.Empty;
         [MaxLength(12)]
         public string Telefono { get; set; } = string.Empty;
-        [EmailAddress]
         public string Correo { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public bool Activo { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Application.Validation.PropertyValidators
+namespace LoanTrack.Application.Validator.PropertyValidators
 {
     public static class IdValidator
     {

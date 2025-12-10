@@ -6,15 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Application.Validation.Usuario
+namespace LoanTrack.Application.Validator.Usuario
 {
-    public class UsuarioUpdateDtoValidator : AbstractValidator<UsuarioUpdateDto>
+    public class UsuarioCreateDtoValidator : AbstractValidator<UsuarioCreateDto>
     {
-        public UsuarioUpdateDtoValidator()
+        public UsuarioCreateDtoValidator()
         {
-            RuleFor(x => x.UsuarioId)
-                .NotEmpty().WithMessage("Debe indicar el ID del usuario.");
-
+            
             RuleFor(x => x.Rol)
                 .IsInEnum().WithMessage("Debe indicar un rol válido.");
 
@@ -24,17 +22,17 @@ namespace LoanTrack.Application.Validation.Usuario
                 .MaximumLength(150).WithMessage("El email no debe exceder 150 caracteres.");
 
             RuleFor(x => x.PasswordHash)
-                .NotEmpty().WithMessage("Debe proporcionar una contraseña.")
+                .NotEmpty().WithMessage("La contraseña es obligatoria.")
                 .MinimumLength(6).WithMessage("La contraseña debe tener al menos 6 caracteres.")
-                .MaximumLength(30).WithMessage("La contraseña no debe exceder 30 caracteres.");
+                .MaximumLength(200).WithMessage("La contraseña no debe exceder 200 caracteres.");
 
             RuleFor(x => x.Nombre)
                 .NotEmpty().WithMessage("El nombre es obligatorio.")
-                .MaximumLength(20).WithMessage("El nombre no debe exceder 20 caracteres.");
+                .MaximumLength(50).WithMessage("El nombre no debe exceder 50 caracteres.");
 
             RuleFor(x => x.Apellido)
                 .NotEmpty().WithMessage("El apellido es obligatorio.")
-                .MaximumLength(20).WithMessage("El apellido no debe exceder 20 caracteres.");
+                .MaximumLength(50).WithMessage("El apellido no debe exceder 50 caracteres.");
 
             RuleFor(x => x.Telefono)
                 .MaximumLength(12).WithMessage("El teléfono no debe exceder 12 caracteres.")

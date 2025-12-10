@@ -5,7 +5,7 @@ using LoanTrack.Application.Dtos.Pago;
 using LoanTrack.Application.Dtos.Usuario;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
-using LoanTrack.Application.Validation.PropertyValidators;
+using LoanTrack.Application.Validator.PropertyValidators;
 using LoanTrack.Domain.Entities;
 using LoanTrack.Domain.Enums;
 

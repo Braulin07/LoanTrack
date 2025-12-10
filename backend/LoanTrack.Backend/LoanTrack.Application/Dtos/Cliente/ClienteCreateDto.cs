@@ -10,14 +10,10 @@ namespace LoanTrack.Application.Dtos.Cliente
     public class ClienteCreateDto
     {
         public string Nombre { get; set; } = string.Empty;
-        [MaxLength(20)]
         public string Apellido { get; set; } = string.Empty;
-        [MaxLength(13)]
         public string Cedula { get; set; } = string.Empty;
-        [MaxLength(12)]
         public string Telefono { get; set; } = string.Empty;
-        [EmailAddress]
-        public string Correo { get; set; } = string.Empty;
+        public string? Correo { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public bool Activo { get; set; }
 
