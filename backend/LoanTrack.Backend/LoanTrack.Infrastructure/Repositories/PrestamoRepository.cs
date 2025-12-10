@@ -2,6 +2,7 @@
 using LoanTrack.Domain.Enums;
 using LoanTrack.Domain.Interfaces;
 using LoanTrack.Infrastructure.Context;
+using LoanTrack.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoanTrack.Infrastructure.Repositories
+namespace LoanTrack.Application.Interfaces.Repositories
 {
     public class PrestamoRepository : GenericRepository<Prestamo>, IPrestamoRepository
     {

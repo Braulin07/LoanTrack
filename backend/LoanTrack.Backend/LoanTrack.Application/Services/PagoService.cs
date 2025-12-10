@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using LoanTrack.Application.Dtos.Pago;
-using LoanTrack.Application.Interfaces;
+using LoanTrack.Application.Interfaces.Repositories;
+using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Domain.Entities;
-using LoanTrack.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +38,16 @@ namespace LoanTrack.Application.Services
 
         public async Task<PagoUpdateDto> Update(PagoUpdateDto pagoDto)
         {
+<<<<<<< HEAD
             await _ValidatorUp.ValidateAndThrowAsync(pagoDto);
             var entidad = _mapper.Map<Pago>(pagoDto);
+=======
+            var entidad = await _repo.GetById(pagoDto.PagoId);
+            if (entidad == null) throw new KeyNotFoundException("Pago no encontrado");
+
+            _mapper.Map(pagoDto, entidad);
+
+>>>>>>> develop
             await _repo.Update(entidad);
             return pagoDto;
         }

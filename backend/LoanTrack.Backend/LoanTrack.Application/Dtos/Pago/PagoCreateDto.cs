@@ -14,5 +14,6 @@ namespace LoanTrack.Application.Dtos.Pago
         public DateOnly FechaPago { get; set; }
         public MetodoPago MetodoPago { get; set; }
         public string Observacion { get; set; } = string.Empty;
+        public int PrestamoId { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using LoanTrack.Application.Dtos.Pago;
-using LoanTrack.Application.Interfaces;
+using LoanTrack.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
