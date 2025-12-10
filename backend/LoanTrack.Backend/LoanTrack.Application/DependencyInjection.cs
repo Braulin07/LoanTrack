@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using LoanTrack.Application.Interfaces;
+=======
+﻿using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Application.Mapping;
 using LoanTrack.Application.Services;
 using LoanTrack.Application.Validator.Cliente;
@@ -20,6 +22,7 @@ namespace LoanTrack.Application
         {
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IPrestamoService, PrestamoService>();
+            services.AddScoped<IPagoService, PagoService>();
             services.AddAutoMapper(typeof(ClienteProfile));
             services.AddAutoMapper(typeof(PrestamoProfile));
             services.AddAutoMapper(typeof(PagoProfile));

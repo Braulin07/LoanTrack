@@ -1,5 +1,5 @@
 ﻿using LoanTrack.Application.Dtos.Prestamo;
-using LoanTrack.Application.Interfaces;
+using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
