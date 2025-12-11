@@ -16,7 +16,7 @@ namespace LoanTrack.Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<Pago>> GetPagosEntreFechas(DateOnly fechaInicio, DateOnly fechaFin)
+        public async Task<IEnumerable<Pago>> GetPagosEntreFechas(DateTime fechaInicio, DateTime fechaFin)
         {
             return await _context.Pagos
                 .Where(x => x.FechaPago >= fechaInicio && x.FechaPago <= fechaFin)

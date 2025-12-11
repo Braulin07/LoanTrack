@@ -25,6 +25,7 @@ namespace LoanTrack.Application.Validator.Prestamo
                    .NotEmpty().WithMessage("La FechaVencimiento es obligatorio");
             RuleFor(x => x.Estado)
                    .NotEmpty().WithMessage("El Estado es obligatorio");
+           
         }
     }
 }

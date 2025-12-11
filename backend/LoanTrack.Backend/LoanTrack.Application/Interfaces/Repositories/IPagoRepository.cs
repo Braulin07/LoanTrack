@@ -13,7 +13,7 @@ namespace LoanTrack.Application.Interfaces.Repositories
         Task<IEnumerable<Pago>> GetPagosPorPrestamo(int idPrestamo);
 
         //Aqui obtengo los pagos en un rango de fecha
-        Task<IEnumerable<Pago>> GetPagosEntreFechas(DateOnly fechaInicio, DateOnly fechaFin);
+        Task<IEnumerable<Pago>> GetPagosEntreFechas(DateTime fechaInicio, DateTime fechaFin);
 
         //para ver el total pagado por un prestamo
         Task<decimal> GetTotalPagadoPorPrestamo(int idPrestamo);

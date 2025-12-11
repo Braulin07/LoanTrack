@@ -33,7 +33,7 @@ namespace LoanTrack.Application.Services
             await _validatorCr.ValidateAndThrowAsync(createDto);
             var entidad = _mapper.Map<Prestamo>(createDto);
             if (entidad == null) throw new Exception("La Entidad no puede ser Nula o Vacia");
-
+            entidad.FechaVencimiento = entidad.FechaInicio.AddMonths(entidad.Plazo);
             await _repo.Create(entidad);
 
             return createDto;

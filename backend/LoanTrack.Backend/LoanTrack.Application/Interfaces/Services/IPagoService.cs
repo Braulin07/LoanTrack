@@ -11,12 +11,13 @@ namespace LoanTrack.Application.Interfaces.Services
 {
     public interface IPagoService
     {
-        Task<IEnumerable<PagoReadDto>> GetPagosEntreFechas(DateOnly fechaInicio, DateOnly fechaFin);
+        Task<IEnumerable<PagoReadDto>> GetPagosEntreFechas(DateTime fechaInicio, DateTime fechaFin);
         Task<IEnumerable<PagoReadDto>> GetPagosPorPrestamo(int prestamoId);
         Task<decimal> GetTotalPagadoPorPrestamo(int prestamoId);
         Task<PagoReadDto> GetUltimoPago(int prestamoId);
         Task<PagoCreateDto> Create(PagoCreateDto pagoDto);
         Task<PagoUpdateDto> Update(PagoUpdateDto pagoDto);
         Task<bool> Delete(int pagoId);
+        Task<ResultadoPagoDto> RegistrarPago(RegistrarPagoDto dto);
     }
 }

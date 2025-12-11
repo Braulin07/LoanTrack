@@ -37,7 +37,7 @@ namespace LoanTrack.Application.Interfaces.Repositories
 
         public async Task<IEnumerable<Prestamo>> GetPrestamosConVencimientoHoy()
         {
-            DateOnly FechaHoy = DateOnly.FromDateTime(DateTime.Now);
+            DateTime FechaHoy = DateTime.Today;
             return await _context.Prestamos.Where(x => x.FechaVencimiento == FechaHoy).ToListAsync();
         }
 
@@ -48,7 +48,7 @@ namespace LoanTrack.Application.Interfaces.Repositories
 
         public async Task<IEnumerable<Prestamo>> GetPrestamosVencidos()
         {
-            DateOnly FechaHoy = DateOnly.FromDateTime(DateTime.Now);
+            DateTime FechaHoy = DateTime.Today;
             return await _context.Prestamos.Where(x => x.FechaVencimiento <=FechaHoy).ToListAsync();
         }
     }

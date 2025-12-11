@@ -23,8 +23,6 @@ namespace LoanTrack.Application.Validator.Prestamo
                     .NotEmpty().WithMessage("El MontoTotal es obligatorio");
             RuleFor(x => x.FechaInicio)
                    .NotEmpty().WithMessage("La FechaInicio es obligatorio");
-            RuleFor(x => x.FechaVencimiento)
-                   .NotEmpty().WithMessage("La FechaVencimiento es obligatorio");
             RuleFor(x => x.Estado)
                    .NotEmpty().WithMessage("El Estado es obligatorio");
         }

@@ -15,6 +15,14 @@ namespace LoanTrack.WebAPI.Controllers
             _service = service;
         }
 
+        [HttpPut]
+        [Route("Pago")]
+        public async Task<IActionResult> RegistrarPag([FromBody]RegistrarPagoDto pagoDto)
+        {
+            var result = await _service.RegistrarPago(pagoDto);
+            return Ok(result);
+        }
+
         [HttpPost]
         [Route("Crear")]
         public async Task<IActionResult> CreateAsync(PagoCreateDto pagoDto)
@@ -40,7 +48,7 @@ namespace LoanTrack.WebAPI.Controllers
 
         [HttpGet]
         [Route("Pagos_Entre_Fechas")]
-        public async Task<IActionResult> GetPagosEntreFechasAsync(DateOnly fechaInicio, DateOnly fechaFin)
+        public async Task<IActionResult> GetPagosEntreFechasAsync(DateTime fechaInicio, DateTime fechaFin)
         {
             var result = await _service.GetPagosEntreFechas(fechaInicio, fechaFin);
             return Ok(result);

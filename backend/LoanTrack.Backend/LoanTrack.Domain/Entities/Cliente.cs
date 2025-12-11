@@ -25,6 +25,7 @@ namespace LoanTrack.Domain.Entities
         public string Cedula { get; set; } = string.Empty;
         [MaxLength(12)]
         public string Telefono { get; set; } = string.Empty;
+        [EmailAddress]
         public string Correo { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public DateOnly FechaRegistro { get; set; }

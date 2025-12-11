@@ -10,7 +10,7 @@ namespace LoanTrack.Application.Dtos.Pago
     public class PagoCreateDto
     {
         public decimal MontoPagado { get; set; }
-        public DateOnly FechaPago { get; set; }
+        public DateTime FechaPago { get; set; }
         public MetodoPago MetodoPago { get; set; }
         public string Observacion { get; set; } = string.Empty;
         public int PrestamoId { get; set; }
