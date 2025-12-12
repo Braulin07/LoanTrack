@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Infrastructure
 {
-    public static class DependencyInjection
+    public static class ServiceRegistration
     {
         public static void AddInfrastructureServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
