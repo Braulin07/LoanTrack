@@ -28,6 +28,8 @@ namespace LoanTrack.Infrastructure
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+            services.AddScoped<IAuthRepository, AuthRepository>();
+
         }
     }
 }
