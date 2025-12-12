@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using LoanTrack.Application.Interfaces;
-﻿using LoanTrack.Application.Interfaces.Services;
+using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Application.Mapping;
 using LoanTrack.Application.Services;
 using LoanTrack.Application.Validator.Cliente;
@@ -15,17 +15,23 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application
 {
-    public static class DependencyInjection
+    public static class ServiceRegistration
     {
         public static void AddApplicationServiceRegistration(this IServiceCollection services)
         {
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IPrestamoService, PrestamoService>();
             services.AddScoped<IPagoService, PagoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddAutoMapper(typeof(ClienteProfile));
             services.AddAutoMapper(typeof(PrestamoProfile));
             services.AddAutoMapper(typeof(PagoProfile));
-            services.AddValidatorsFromAssembly(typeof(ClienteCreateDtoValidator).Assembly);
+            services.AddAutoMapper(typeof(UsuarioProfile));
+            services.AddAutoMapper(typeof(AuthProfile));
+
+            
         }
     }
 }
