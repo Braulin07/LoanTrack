@@ -9,9 +9,9 @@ namespace LoanTrack.Application.Interfaces.Repositories
 {
     public interface IAuthRepository
     {
-        Task<Usuario> GetPorEmailAsync(string email, CancellationToken cancellationToken = default);
+        Task<Usuario?> GetPorEmailAsync(string email, CancellationToken cancellationToken = default);
         Task AgregarAsync(Usuario usuario, CancellationToken cancellationToken = default);
         Task<bool> EmailExistenteAsync(string email, CancellationToken cancellationToken = default);
-        Task<Usuario> BuscarPorIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<Usuario?> BuscarPorIdAsync(int id, CancellationToken cancellationToken = default);
     }
 }
