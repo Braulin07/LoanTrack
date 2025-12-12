@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Infrastructure
 {
-    public static class DependencyInjection
+    public static class ServiceRegistration
     {
         public static void AddInfrastructureServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
@@ -27,6 +27,9 @@ namespace LoanTrack.Infrastructure
             services.AddScoped<IPrestamoRepository, PrestamoRepository>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+            services.AddScoped<IAuthRepository, AuthRepository>();
+
         }
     }
 }

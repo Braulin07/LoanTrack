@@ -1,4 +1,5 @@
 using LoanTrack.Application;
+using LoanTrack.Application.Validator.Cliente;
 using LoanTrack.Infrastructure;
 using LoanTrack.WebAPI.Middlewares;
 
@@ -15,6 +16,7 @@ builder.Services.AddInfrastructureServiceRegistration(builder.Configuration);
 builder.Services.AddApplicationServiceRegistration();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 app.UseMiddleware<ValidationExceptionMiddleware>();

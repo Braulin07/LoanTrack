@@ -71,8 +71,7 @@ namespace LoanTrack.Application.Services
 
             return _mapper.Map<ClienteReadDTO>(user);
         }
-    
-        
+
 
         public async Task<ClienteReadDTO> GetById(int id)
         {
