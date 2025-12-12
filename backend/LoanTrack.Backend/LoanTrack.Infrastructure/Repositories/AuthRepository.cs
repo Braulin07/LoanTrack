@@ -19,6 +19,7 @@ namespace LoanTrack.Infrastructure.Repositories
         public async Task AgregarAsync(Usuario usuario, CancellationToken cancellationToken = default)
         {
             await _context.Usuarios.AddAsync(usuario, cancellationToken);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Usuario?> BuscarPorIdAsync(int id, CancellationToken cancellationToken = default)
