@@ -19,8 +19,8 @@ namespace LoanTrack.Application.Validator.Prestamo
                     .NotEmpty().WithMessage("La tasa de interes es obligatoria");
             RuleFor(x => x.Plazo)
                     .NotEmpty().WithMessage("El Plazo es obligatorio");
-            RuleFor(x => x.MontoTotal)
-                    .NotEmpty().WithMessage("El MontoTotal es obligatorio");
+            RuleFor(x => x.Tinteres)
+                    .NotEmpty().WithMessage("El Tipo de interes es obligatorio");
             RuleFor(x => x.FechaInicio)
                    .NotEmpty().WithMessage("La FechaInicio es obligatorio");
             RuleFor(x => x.Estado)

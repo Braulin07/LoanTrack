@@ -35,7 +35,7 @@ namespace LoanTrack.Application.Services
             var entidad = _mapper.Map<Prestamo>(createDto);
             if (entidad == null) throw new Exception("La Entidad no puede ser Nula o Vacia");
             entidad.FechaVencimiento = entidad.FechaInicio.AddMonths(entidad.Plazo);
-            var calculadora = CalculadoraInteresFactory.GetCalculator(entidad.Tinteres);
+            var calculadora = CalculadoraInteresFactory.GetCalculator(entidad.TipoInteres);
             var interesescalculados = calculadora.CaluladoraIntereses(entidad, DateTime.Now);
             await _repo.Create(entidad);
 
