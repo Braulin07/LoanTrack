@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Domain.Enums
 {
-    internal enum AccionAuditoria
+    public enum AccionAuditoria
     {
         CREATE = 1,
         UPDATE = 2,

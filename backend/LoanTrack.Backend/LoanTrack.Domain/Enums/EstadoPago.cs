@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Domain.Enums
 {
-    internal enum EstadoPago
+    public enum EstadoPago
     {
         PENDIENTE = 1,
         EN_TRANSITO = 2,

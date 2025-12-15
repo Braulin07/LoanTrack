@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Domain.Enums
 {
-    internal enum TipoOferta
+    public enum TipoOferta
     {
         DESCUENTO_POR_CUOTAS = 1,
         DESCUENTO_POR_FECHA = 2,
