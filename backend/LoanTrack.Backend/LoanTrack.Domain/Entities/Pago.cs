@@ -53,10 +53,6 @@ namespace LoanTrack.Domain.Entities
         public int PrestamoId { get; set; }
         public Prestamo Prestamo { get; set; }
 
-        [Required]
-        public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
-
         public int? OfertaId { get; set; }
         public Oferta? Oferta { get; set; }
 

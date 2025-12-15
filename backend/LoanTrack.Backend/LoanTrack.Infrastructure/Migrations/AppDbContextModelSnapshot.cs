@@ -22,6 +22,55 @@ namespace LoanTrack.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("LoanTrack.Domain.Entities.Auditoria", b =>
+                {
+                    b.Property<int>("AuditoriaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuditoriaId"));
+
+                    b.Property<int>("Accion")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DescripcionCambio")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("EmailUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Entidad")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("EntidadId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EsOperacionCritica")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FechaCambio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpOrigen")
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
+
+                    b.Property<int>("RolUsuario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditoriaId");
+
+                    b.ToTable("Auditorias");
+                });
+
             modelBuilder.Entity("LoanTrack.Domain.Entities.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
@@ -76,6 +125,55 @@ namespace LoanTrack.Infrastructure.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("LoanTrack.Domain.Entities.Oferta", b =>
+                {
+                    b.Property<int>("OfertaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OfertaId"));
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Condicion")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("CreadoPorUsuarioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PorcentajeDescuento")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TipoOferta")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("OfertaId");
+
+                    b.ToTable("Ofertas");
+                });
+
             modelBuilder.Entity("LoanTrack.Domain.Entities.Pago", b =>
                 {
                     b.Property<int>("PagoId")
@@ -83,6 +181,19 @@ namespace LoanTrack.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PagoId"));
+
+                    b.Property<string>("CodigoPagoEfectivo")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("EstadoPago")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("FechaExpiracionCodigo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaGeneracionCodigo")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaPago")
                         .HasColumnType("datetime2");
@@ -93,6 +204,12 @@ namespace LoanTrack.Infrastructure.Migrations
                     b.Property<decimal>("MontoCapital")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("MontoDescuento")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontoFinalPagado")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("MontoInteres")
                         .HasColumnType("decimal(18,2)");
 
@@ -101,14 +218,29 @@ namespace LoanTrack.Infrastructure.Migrations
 
                     b.Property<string>("Observacion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("OfertaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PrestamoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ReferenciaExterna")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("RegistradoPorUsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("PagoId");
 
+                    b.HasIndex("OfertaId");
+
                     b.HasIndex("PrestamoId");
+
+                    b.HasIndex("RegistradoPorUsuarioId");
 
                     b.ToTable("Pagos");
                 });
@@ -153,6 +285,9 @@ namespace LoanTrack.Infrastructure.Migrations
 
                     b.Property<decimal>("TasaInteres")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TipoInteres")
+                        .HasColumnType("int");
 
                     b.HasKey("PrestamoId");
 
@@ -216,13 +351,27 @@ namespace LoanTrack.Infrastructure.Migrations
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Pago", b =>
                 {
+                    b.HasOne("LoanTrack.Domain.Entities.Oferta", "Oferta")
+                        .WithMany()
+                        .HasForeignKey("OfertaId");
+
                     b.HasOne("LoanTrack.Domain.Entities.Prestamo", "Prestamo")
                         .WithMany("Pagos")
                         .HasForeignKey("PrestamoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("LoanTrack.Domain.Entities.Usuario", "RegistradoPorUsuario")
+                        .WithMany()
+                        .HasForeignKey("RegistradoPorUsuarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Oferta");
+
                     b.Navigation("Prestamo");
+
+                    b.Navigation("RegistradoPorUsuario");
                 });
 
             modelBuilder.Entity("LoanTrack.Domain.Entities.Prestamo", b =>
@@ -230,7 +379,7 @@ namespace LoanTrack.Infrastructure.Migrations
                     b.HasOne("LoanTrack.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Prestamos")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cliente");

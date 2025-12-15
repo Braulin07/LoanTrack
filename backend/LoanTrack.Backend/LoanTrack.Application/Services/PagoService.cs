@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using LoanTrack.Application.Dtos.Pago;
+using LoanTrack.Application.Intereses;
 using LoanTrack.Application.Interfaces.Repositories;
 using LoanTrack.Application.Interfaces.Services;
 using LoanTrack.Domain.Entities;
@@ -19,14 +20,16 @@ namespace LoanTrack.Application.Services
         private readonly IMapper _mapper;
         private readonly IValidator<PagoCreateDto> _ValidatorCr;
         private readonly IValidator<PagoUpdateDto> _ValidatorUp;
+        private readonly IValidator<RegistrarPagoDto> _validatorRG;
 
-        public PagoService(IPagoRepository repo, IPrestamoRepository repopresta, IMapper mapper,IValidator<PagoUpdateDto> validatorUp,IValidator<PagoCreateDto> validatorCr)
+        public PagoService(IPagoRepository repo, IPrestamoRepository repopresta, IMapper mapper,IValidator<PagoUpdateDto> validatorUp,IValidator<PagoCreateDto> validatorCr, IValidator<RegistrarPagoDto> validatorRG)
         {
             _repo = repo;
             _repoPresta = repopresta;
             _mapper = mapper;
             _ValidatorUp = validatorUp;
             _ValidatorCr = validatorCr;
+            _validatorRG = validatorRG;
         }
 
 
@@ -93,53 +96,42 @@ namespace LoanTrack.Application.Services
 
         public async Task<ResultadoPagoDto> RegistrarPago(RegistrarPagoDto dto)
         {
-            
+           
+            await _validatorRG.ValidateAndThrowAsync(dto);
             var prestamo = await _repoPresta.GetById(dto.prestamoId);
 
-            decimal saldoPendiete = prestamo.MontoPrestado - prestamo.MontoPagado;
+            decimal saldoPendiente = prestamo.MontoPrestado - prestamo.MontoPagado;
 
-            if (saldoPendiete <= 0)
-                throw new ArgumentException("El prestamo esta saldado");
+            if (saldoPendiente <= 0)
+                throw new ArgumentException("El préstamo ya está saldado");
 
             DateTime hoy = DateTime.Now;
 
-            decimal interesesGenerado = saldoPendiete * prestamo.TasaInteres;
+            var calculadora = CalculadoraInteresFactory.GetCalculator(prestamo.TipoInteres);
+            decimal interesesGenerados = calculadora.CaluladoraIntereses(prestamo, hoy);
 
-            decimal pagoAInteres = 0;
-            decimal pagoACapital = 0;
+            decimal pagoAInteres = Math.Min(dto.montoPago, interesesGenerados);
+            decimal pagoACapital = dto.montoPago - pagoAInteres;
 
-            decimal montoRestante = dto.montoPago;
-
-            if(montoRestante > 0)
-            {
-                 pagoAInteres = Math.Min(montoRestante,interesesGenerado);
-                montoRestante -= pagoAInteres;
-            }
-
-            if(montoRestante > 0)
-            {
-                pagoACapital = montoRestante;
-                montoRestante = 0;
-            }
-
-            prestamo.MontoPagado += pagoACapital;
             prestamo.InteresesPagados += pagoAInteres;
+            prestamo.MontoPagado += pagoACapital;
             prestamo.FechaUltimoPago = hoy;
 
-            if(pagoAInteres >= interesesGenerado)
+
+            if (pagoAInteres >= interesesGenerados)
             {
-                prestamo.FechaVencimiento.AddMonths(1);
+                prestamo.FechaVencimiento = prestamo.FechaVencimiento.AddMonths(1);
             }
 
-            bool EstadoAtrasado = (hoy > prestamo.FechaVencimiento);
+            bool estaAtrasado = hoy > prestamo.FechaVencimiento;
 
-            decimal balanceParaSalirDeAtraso = 0;
+            decimal balanceParaPonerseAlDia = 0;
 
-            if (EstadoAtrasado)
+            if (estaAtrasado)
             {
-                balanceParaSalirDeAtraso = interesesGenerado - pagoAInteres;
-                if (balanceParaSalirDeAtraso < 0)
-                    balanceParaSalirDeAtraso = 0;
+                balanceParaPonerseAlDia = interesesGenerados - pagoAInteres;
+                if (balanceParaPonerseAlDia < 0)
+                    balanceParaPonerseAlDia = 0;
             }
 
             var pago = new Pago
@@ -153,6 +145,10 @@ namespace LoanTrack.Application.Services
 
             await _repo.Create(pago);
             await _repoPresta.Update(prestamo);
+
+
+            decimal saldoCapitalRestante = prestamo.MontoPrestado - prestamo.MontoPagado;
+
             return new ResultadoPagoDto
             {
                 IdPago = pago.PagoId,
@@ -162,22 +158,23 @@ namespace LoanTrack.Application.Services
                 CapitalPagado = pagoACapital,
                 InteresPagado = pagoAInteres,
 
-                SaldoCapitalRestante = prestamo.MontoPrestado - prestamo.MontoPagado,
+                SaldoCapitalRestante = saldoCapitalRestante,
 
-                PrestamoEnAtraso = EstadoAtrasado,
-                EstadoPrestamo = EstadoAtrasado ? "Atrasado" : "Al Día",
+                PrestamoEnAtraso = estaAtrasado,
+                EstadoPrestamo = estaAtrasado ? "Atrasado" : "Al Día",
+
                 FechaVencimientoActual = prestamo.FechaVencimiento,
                 ProximaFechaVencimiento = prestamo.FechaVencimiento.AddMonths(1),
-                BalanceParaSalirDeAtraso = balanceParaSalirDeAtraso,
 
-                MensajeResumen = EstadoAtrasado
-                    ? $"El préstamo sigue en atraso. Debe pagar {balanceParaSalirDeAtraso} para ponerse al día."
-            : "Pago registrado correctamente. El préstamo está al día."
+                BalanceParaSalirDeAtraso = balanceParaPonerseAlDia,
+
+                MensajeResumen = estaAtrasado
+                    ? $"El préstamo sigue en atraso. Debe pagar {balanceParaPonerseAlDia} para ponerse al día."
+                    : "Pago registrado correctamente. El préstamo está al día."
             };
-          
-
         }
 
-    
+
+
     }
 }

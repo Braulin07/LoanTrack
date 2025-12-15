@@ -1,4 +1,5 @@
 ﻿using LoanTrack.Domain.Enums;
+using LoanTrack.Domain.Enums.LoanTrack.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,9 +14,9 @@ namespace LoanTrack.Application.Dtos.Prestamo
         public decimal MontoPrestado { get; set; }
         public decimal TasaInteres { get; set; }
         public int Plazo { get; set; }
-        public decimal MontoTotal { get; set; }
         public DateTime FechaInicio { get; set; }
         public EstadoPrestamo Estado { get; set; }
+        public TipoInteres Tinteres { get; set; }
         public int ClienteId { get; set; }
     }
 }
