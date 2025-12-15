@@ -150,7 +150,11 @@ namespace LoanTrack.Application.Services
                 MontoInteres = pagoAInteres,
                 FechaPago = hoy
             };
+            prestamo.MontoTotal -= pago.MontoCapital;
 
+            if (prestamo.MontoTotal < 0)
+                prestamo.MontoTotal = 0;
+            
             await _repo.Create(pago);
             await _repoPresta.Update(prestamo);
             return new ResultadoPagoDto

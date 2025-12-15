@@ -93,7 +93,7 @@ namespace LoanTrack.Application.Services
 
             return responseDto;
         }
-
+        
         public async Task<AuthResponseDto> RegistrarAsync(RegisterUserRequestDto dto, CancellationToken cancellationToken)
         {
             var emailExiste = await _authRepo.EmailExistenteAsync(dto.Email, cancellationToken);
