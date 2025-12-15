@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace LoanTrack.Application.Dtos.Pago
 {
-    public class PagoCreateDto
+    public class PagoEfectivoCreateDto
     {
         public int PrestamoId { get; set; }
         public int ClienteId { get; set; }
         public decimal MontoPagado { get; set; }
-        public MetodoPago MetodoPago { get; set; }
-        public DateTime FechaPago { get; set; }
-        public string? ReferenciaExterna { get; set; }
-
+        public EstadoPago EstadoPago { get; set; }
         public string? Observacion { get; set; }
-        
+
     }
 }
